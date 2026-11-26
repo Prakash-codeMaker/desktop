@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
+import { describe, it } from 'node:test'
 import { lstat, mkdir, readFile, readlink, symlink, writeFile } from 'fs/promises'
 import { dirname, join } from 'path'
-import { describe, it } from 'node:test'
 import { createTempDirectory } from '../app/test/helpers/temp'
 import { restoreGitCoreSymlinks } from './restore-git-core-symlinks'
 
@@ -42,11 +42,20 @@ describe(
       const restored = restoreGitCoreSymlinks(sourceApp, packagedApp)
 
       assert.equal(restored, 1)
-      assert.equal((await lstat(packagedGitAdd)).isSymbolicLink(), true)
+      assert.equal(
+        (await lstat(packagedGitAdd)).isSymbolicLink(),
+        true
+      )
       assert.equal(await readlink(packagedGitAdd), target)
-      assert.equal(await readFile(packagedGitAdd, 'utf8'), 'git executable')
+      assert.equal(
+        await readFile(packagedGitAdd, 'utf8'),
+        'git executable'
+      )
       assert.equal((await lstat(packagedExternalLink)).isFile(), true)
-      assert.equal(await readFile(packagedExternalLink, 'utf8'), 'external target')
+      assert.equal(
+        await readFile(packagedExternalLink, 'utf8'),
+        'external target'
+      )
       assert.equal((await lstat(sourceGitAdd)).isSymbolicLink(), true)
     })
   }

@@ -220,10 +220,7 @@ async function packageApp() {
       ({
         buildPath,
         platform
-      }: {
-        buildPath: string
-        platform: DesktopPackagePlatform
-      }) => {
+      }: { buildPath: string; platform: string }) => {
         if (platform !== 'darwin') {
           return
         }
